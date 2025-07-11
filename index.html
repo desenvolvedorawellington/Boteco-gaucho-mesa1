@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boteco do Gaúcho 🍻</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: url('fundo-boteco.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      padding-bottom: 120px;
+    }
+header {
+  text-align: center;
+  padding: 1rem;
+  background: transparent;
+}
+    
+
+    header img {
+      width: 160px;
+      animation: fadeInDown 1s ease;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mesa {
+      text-align: center;
+      margin: 1rem auto 0.5rem;
+      font-size: 1.5rem;
+      color: #f9d923;
+      font-weight: bold;
+    }
+
+    .input-nome {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .input-nome input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      width: 300px;
+      text-align: center;
+    }
+
+    .button-chamar {
+      display: block;
+      margin: 0 auto 1.5rem;
+      background: #f94c10;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .button-chamar:hover {
+      background: #ff732b;
+    }
+
+    .cardapio {
+      max-width: 650px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .secao {
+      margin-bottom: 2rem;
+    }
+
+    .secao h2 {
+      margin-bottom: 1rem;
+      color: #f94c10;
+      font-family: 'Bungee', sans-serif;
+      border-bottom: 2px solid #f9d923;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      background: #1f1f1f;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
+    .item:hover {
+      transform: scale(1.02);
+    }
+
+    .item span {
+      flex: 1;
+    }
+
+    .controles {
+      display: flex;
+      gap: 8px;
+    }
+
+    .controles button {
+      background: #f9d923;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .carrinho {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      z-index: 1000;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+    }
+
+    .carrinho button {
+      background: #25d366;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .carrinho button:hover {
+      background: #1ebe5d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo-boteco.png" alt="Logo Boteco do Gaúcho">
+  </header>
+
+  <div class="mesa" id="mesaInfo">🛎️ Mesa X</div>
+  <div class="input-nome"><input type="text" id="nomeCliente" placeholder="Digite seu nome" /></div>
+  <button class="button-chamar" onclick="chamarGarcom()">Chamar Garçom</button>
+
+  <div class="cardapio">
+    <div class="secao">
+      <h2>🥩 Espetinhos</h2>
+      <div class="item"><span>Espetinho de Frango (R$ 7.99)</span><div class="controles"><button onclick="alterar('Espetinho de Frango', 7.99, -1)">-</button><button onclick="alterar('Espetinho de Frango', 7.99, 1)">+</button></div></div>
+      <div class="item"><span>Espetinho de Carne c/ Queijo (R$ 9.99)</span><div class="controles"><button onclick="alterar('Espetinho de Carne c/ Queijo', 9.99, -1)">-</button><button onclick="alterar('Espetinho de Carne c/ Queijo', 9.99, 1)">+</button></div></div>
+      <div class="item"><span>Espetinho de Coração (R$ 8.99)</span><div class="controles"><button onclick="alterar('Espetinho de Coração', 8.99, -1)">-</button><button onclick="alterar('Espetinho de Coração', 8.99, 1)">+</button></div></div>
+    </div>
+
+    <div class="secao">
+      <h2>🍟 Petiscos</h2>
+      <div class="item"><span>Batata Rústica (R$ 12.99)</span><div class="controles"><button onclick="alterar('Batata Rústica', 12.99, -1)">-</button><button onclick="alterar('Batata Rústica', 12.99, 1)">+</button></div></div>
+      <div class="item"><span>Calabresa acebolada (R$ 15.99)</span><div class="controles"><button onclick="alterar('Calabresa acebolada', 15.99, -1)">-</button><button onclick="alterar('Calabresa acebolada', 15.99, 1)">+</button></div></div>
+      <div class="item"><span>Pastel de Feira (R$ 9.99)</span><div class="controles"><button onclick="alterar('Pastel de Feira', 9.99, -1)">-</button><button onclick="alterar('Pastel de Feira', 9.99, 1)">+</button></div></div>
+    </div>
+
+    <div class="secao">
+      <h2>🍺 Bebidas</h2>
+      <div class="item"><span>Cerveja Brahma Latão (R$ 4.99)</span><div class="controles"><button onclick="alterar('Cerveja Brahma Latão', 4.99, -1)">-</button><button onclick="alterar('Cerveja Brahma Latão', 4.99, 1)">+</button></div></div>
+      <div class="item"><span>Skol Litro (R$ 7.99)</span><div class="controles"><button onclick="alterar('Skol Litro', 7.99, -1)">-</button><button onclick="alterar('Skol Litro', 7.99, 1)">+</button></div></div>
+      <div class="item"><span>Caipirinha de Limão (R$ 9.99)</span><div class="controles"><button onclick="alterar('Caipirinha de Limão', 9.99, -1)">-</button><button onclick="alterar('Caipirinha de Limão', 9.99, 1)">+</button></div></div>
+      <div class="item"><span>Refrigerante Lata (R$ 3.99)</span><div class="controles"><button onclick="alterar('Refrigerante Lata', 3.99, -1)">-</button><button onclick="alterar('Refrigerante Lata', 3.99, 1)">+</button></div></div>
+    </div>
+  </div>
+
+  <div class="carrinho">
+    <div id="resumo">Pedido vazio</div>
+    <button onclick="enviarPedido()">📲 Finalizar Pedido</button>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const mesa = urlParams.get('mesa') || '1';
+    document.getElementById('mesaInfo').innerText = `🛎️ Mesa ${mesa}`;
+    let pedido = {};
+
+    function alterar(item, preco, qtd) {
+      if (!pedido[item]) pedido[item] = { qtd: 0, preco };
+      pedido[item].qtd += qtd;
+      if (pedido[item].qtd <= 0) delete pedido[item];
+      atualizarResumo();
+    }
+
+    function atualizarResumo() {
+      const resumo = Object.entries(pedido)
+        .map(([item, info]) => `${info.qtd}x ${item}`)
+        .join(', ');
+      document.getElementById('resumo').innerText = resumo || 'Pedido vazio';
+    }
+
+    function chamarGarcom() {
+      const nome = document.getElementById('nomeCliente').value.trim();
+      const texto = `⚠️ Atenção: cliente da Mesa ${mesa} está chamando o garçom.%0A👤 Nome: ${nome || 'Não informado'}`;
+      const url = `https://api.whatsapp.com/send?phone=5521998511703&text=${encodeURIComponent(texto)}`;
+      window.open(url);
+    }
+
+    function enviarPedido() {
+      const nome = document.getElementById('nomeCliente').value.trim();
+      if (!nome) {
+        alert("Por favor, digite seu nome antes de finalizar o pedido.");
+        return;
+      }
+
+      if (Object.keys(pedido).length === 0) {
+        alert("Adicione itens ao pedido antes de finalizar.");
+        return;
+      }
+
+      let total = 0;
+      const itens = Object.entries(pedido)
+        .map(([item, info]) => {
+          total += info.qtd * info.preco;
+          return `- ${info.qtd}x ${item} (R$ ${info.preco.toFixed(2)})`;
+        })
+        .join("\n");
+
+      const texto = `🍻 *Pedido da Mesa ${mesa}*\n👤 Cliente: ${nome}\n📝 Itens:\n${itens}\n💰 Total: R$ ${total.toFixed(2)}`;
+      const url = `https://api.whatsapp.com/send?phone=5521998511703&text=${encodeURIComponent(texto)}`;
+      window.open(url);
+    }
+  </script>
+</body>
+</html>
